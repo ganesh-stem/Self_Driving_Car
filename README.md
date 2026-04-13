@@ -139,6 +139,3 @@ Most hyperparameters live at the top of `environment.py` and `ai.py`:
 
 ---
 
-## License
-
-MIT — feel free to use, modify, and share.
