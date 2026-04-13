@@ -1,0 +1,160 @@
+#:kivy 1.9.1
+
+# ── Car ────────────────────────────────────────────────────────────────────────
+# A 28×14 px car drawn with body, cabin, windshield, headlights and brake lights.
+
+<Car>:
+    size: 28, 14
+    canvas:
+        PushMatrix
+        Rotate:
+            angle: self.angle
+            origin: self.center
+        # Drop shadow
+        Color:
+            rgba: 0, 0, 0, 0.45
+        RoundedRectangle:
+            pos: self.x + 2, self.y - 2
+            size: self.width, self.height
+            radius: [4]
+        # Main body — blue on road, orange-red on sand
+        Color:
+            rgba: 0.18 + self.is_on_sand * 0.65, 0.52 - self.is_on_sand * 0.30, 1.0 - self.is_on_sand * 0.85, 1
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [4]
+        # Cabin / roof — tints darker red on sand
+        Color:
+            rgba: 0.10 + self.is_on_sand * 0.52, 0.34 - self.is_on_sand * 0.20, 0.78 - self.is_on_sand * 0.68, 1
+        Rectangle:
+            pos: self.x + 7, self.y + 2
+            size: 12, 10
+        # Windshield — ice blue
+        Color:
+            rgba: 0.62, 0.88, 1, 0.9
+        Rectangle:
+            pos: self.x + 15, self.y + 3
+            size: 5, 8
+        # Front headlights — warm white/yellow  (front = high x)
+        Color:
+            rgba: 1, 0.97, 0.75, 1
+        Ellipse:
+            pos: self.x + 23, self.y + 9
+            size: 4, 4
+        Ellipse:
+            pos: self.x + 23, self.y + 1
+            size: 4, 4
+        # Rear brake lights — red  (rear = low x)
+        Color:
+            rgba: 1, 0.15, 0.15, 1
+        Ellipse:
+            pos: self.x + 1, self.y + 9
+            size: 4, 4
+        Ellipse:
+            pos: self.x + 1, self.y + 1
+            size: 4, 4
+        PopMatrix
+
+# ── Sensor balls ───────────────────────────────────────────────────────────────
+# Each ball has a translucent glow ring + a solid core.
+# Colour coding: red (forward), teal (+30°), blue (-30°), orange (+60°), purple (-60°)
+
+<Ball1>:
+    size: 12, 12
+    canvas:
+        Color:
+            rgba: 1, 0.2, 0.2, 0.22
+        Ellipse:
+            pos: self.x - 5, self.y - 5
+            size: 22, 22
+        Color:
+            rgba: 1, 0.2, 0.2, 1
+        Ellipse:
+            pos: self.pos
+            size: self.size
+
+<Ball2>:
+    size: 12, 12
+    canvas:
+        Color:
+            rgba: 0.2, 1, 0.65, 0.22
+        Ellipse:
+            pos: self.x - 5, self.y - 5
+            size: 22, 22
+        Color:
+            rgba: 0.2, 1, 0.65, 1
+        Ellipse:
+            pos: self.pos
+            size: self.size
+
+<Ball3>:
+    size: 12, 12
+    canvas:
+        Color:
+            rgba: 0.2, 0.60, 1, 0.22
+        Ellipse:
+            pos: self.x - 5, self.y - 5
+            size: 22, 22
+        Color:
+            rgba: 0.2, 0.60, 1, 1
+        Ellipse:
+            pos: self.pos
+            size: self.size
+
+<Ball4>:
+    size: 12, 12
+    canvas:
+        Color:
+            rgba: 1, 0.65, 0.1, 0.22
+        Ellipse:
+            pos: self.x - 5, self.y - 5
+            size: 22, 22
+        Color:
+            rgba: 1, 0.65, 0.1, 1
+        Ellipse:
+            pos: self.pos
+            size: self.size
+
+<Ball5>:
+    size: 12, 12
+    canvas:
+        Color:
+            rgba: 0.75, 0.2, 1, 0.22
+        Ellipse:
+            pos: self.x - 5, self.y - 5
+            size: 22, 22
+        Color:
+            rgba: 0.75, 0.2, 1, 1
+        Ellipse:
+            pos: self.pos
+            size: self.size
+
+# ── Game layout ────────────────────────────────────────────────────────────────
+
+<Game>:
+    car:   game_car
+    ball1: game_ball1
+    ball2: game_ball2
+    ball3: game_ball3
+    ball4: game_ball4
+    ball5: game_ball5
+
+    Car:
+        id: game_car
+        center: self.parent.center
+    Ball1:
+        id: game_ball1
+        center: self.parent.center
+    Ball2:
+        id: game_ball2
+        center: self.parent.center
+    Ball3:
+        id: game_ball3
+        center: self.parent.center
+    Ball4:
+        id: game_ball4
+        center: self.parent.center
+    Ball5:
+        id: game_ball5
+        center: self.parent.center
